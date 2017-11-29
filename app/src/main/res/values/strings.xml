@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Magpie</string>
+    <string name="google_sign_in">Google Sign-In</string>
+    <string name="default_web_client_id_server">955947345618-74sglr02q0iujrrkdnatsau8mukqeu38.apps.googleusercontent.com</string>
+    <!--<string name="default_web_client_id">1051549843498-kfetusesfc5drgo9bv9p93imug1oj6na.apps.googleusercontent.com</string>
+        This is actually given to us already! No need to specifically declare. Leaving this here for future reference. :)
+    -->
+</resources>
