@@ -16,16 +16,29 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.magpiehunt.magpie.Fragments.MapFragment;
 import com.magpiehunt.magpie.Fragments.MyCollectionsFragment;
 import com.magpiehunt.magpie.Fragments.PrizesFragment;
 import com.magpiehunt.magpie.Fragments.QRFragment;
 import com.magpiehunt.magpie.Fragments.SearchCollectionsFragment;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Author:  Blake Impecoven
@@ -35,10 +48,13 @@ import com.magpiehunt.magpie.Fragments.SearchCollectionsFragment;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, MyCollectionsFragment.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener, QRFragment.OnFragmentInteractionListener, SearchCollectionsFragment.OnFragmentInteractionListener,PrizesFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
+    private static final int RC_SIGN_IN = 123;
+    private int requestCode = 0;
 
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
+
     /*
      * Firebase/Google instance variables
     **/
@@ -62,17 +78,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-
-
         // Initialize Firebase
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-       /* if (mFirebaseUser == null) {
+        int requestCode = 0;
+        if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
-            return;
-        } else {
+            startActivityForResult(new Intent(this, SignInActivity.class), requestCode);
+       } else {
             // Just thought I'd throw this is in we need it in the future,
             // if not, it isnt hurting anything.
             mUsername = mFirebaseUser.getDisplayName();
@@ -83,12 +96,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }//end if
         }//end if/else
 
-        // Build Google API Client
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
-*/
         // Firebase Database Initialization - Soon to come...
 //        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -97,9 +104,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
         setupFragments();
 
-        SQLiteDatabase mydatabase = openOrCreateDatabase("magpie.db",MODE_PRIVATE,null);
 
     }//end onCreate
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if(requestCode == this.requestCode) {
+                if (resultCode == RESULT_OK) {
+                    // Google Sign-In was successful, authenticate with Firebase
+                    mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                } else {
+                    // Google Sign-In failed.
+                    Log.e(TAG, "Google Sign-In failed.");
+                }//if: successful. else: failure.
+            }
+        }//end if
+    }//end
 
     //this method creates the fragments for each page accessible from the bottom navigation
     // bar and sets up the listener for the navigation bar.
