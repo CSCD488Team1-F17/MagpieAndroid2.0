@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,29 +15,17 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.magpiehunt.magpie.Fragments.MapFragment;
 import com.magpiehunt.magpie.Fragments.MyCollectionsFragment;
 import com.magpiehunt.magpie.Fragments.PrizesFragment;
 import com.magpiehunt.magpie.Fragments.QRFragment;
 import com.magpiehunt.magpie.Fragments.SearchCollectionsFragment;
-
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Author:  Blake Impecoven
@@ -103,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
         setupFragments();
+
+       // MagpieDatabase db = MagpieDatabase.getMagpieDatabase(this);
+        //log.e(TAG, db.collectionDao().getCollection(1).getName());
+
 
 
     }//end onCreate
