@@ -2,10 +2,10 @@ package com.magpiehunt.magpie.Entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.PrimaryKey;
 
-import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by James on 1/10/2018.
@@ -13,36 +13,57 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Entity(tableName = "Landmarks", foreignKeys = @ForeignKey(
                                             entity = Collection.class,
-                                            parentColumns = "CID",
-                                            childColumns = "CID"))
+                                            parentColumns = "cID",
+                                            childColumns = "cID"))
 public class Landmark {
 
+    @SerializedName("LID")
+    @Expose
     @PrimaryKey
-    private int LID;
-    private int CID;
+    private int lID;
+    @SerializedName("CID")
+    @Expose
+    private int cID;
+    @SerializedName("LandmarkName")
+    @Expose
     private String LandmarkName;
+    @SerializedName("Latitude")
+    @Expose
     private double latitude;
+    @SerializedName("Longitude")
+    @Expose
     private double longitude;
+    @SerializedName("LandmarkDescription")
+    @Expose
     private String landmarkDescription;
-    private String QRCode;
+    @SerializedName("QRCode")
+    @Expose
+    private String qRCode;
+    @SerializedName("PicID")
+    @Expose
     private int picID;
+    @SerializedName("BadgeID")
+    @Expose
     private int badgeID;
+    @SerializedName("OrderNum")
+    @Expose
     private int orderNum;
 
+
     public int getLID() {
-        return LID;
+        return lID;
     }
 
     public void setLID(int LID) {
-        this.LID = LID;
+        this.lID = LID;
     }
 
     public int getCID() {
-        return CID;
+        return cID;
     }
 
-    public void setCID(int CID) {
-        this.CID = CID;
+    public void setCID(int cID) {
+        this.cID = cID;
     }
 
     public String getLandmarkName() {
@@ -78,11 +99,11 @@ public class Landmark {
     }
 
     public String getQRCode() {
-        return QRCode;
+        return qRCode;
     }
 
     public void setQRCode(String QRCode) {
-        this.QRCode = QRCode;
+        this.qRCode = QRCode;
     }
 
     public int getPicID() {

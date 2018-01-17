@@ -1,15 +1,16 @@
 package com.magpiehunt.magpie.Fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.magpiehunt.magpie.Controllers.DBController;
+import com.magpiehunt.magpie.Database.MagpieDatabase;
 import com.magpiehunt.magpie.R;
+import com.magpiehunt.magpie.WebClient.JSONParser;
 
 
 /**
@@ -25,6 +26,9 @@ public class SearchCollectionsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final String TAG = "SearchCollectionsFragment";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,7 +62,12 @@ public class SearchCollectionsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        DBController dbController = new DBController(this.getActivity());
+        MagpieDatabase db = MagpieDatabase.getMagpieDatabase(this.getActivity());
+        JSONParser jsonParser = new JSONParser(this.getActivity());
+        //jsonParser.getLandmarks();
+       // jsonParser.getLandmarks();
+      //  Collection c = db.collectionDao().getCollection(1);
+
 
 
     }
@@ -67,7 +76,26 @@ public class SearchCollectionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_collections, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_search_collections, container, false);
+
+
+       // MagpieDatabase db = MagpieDatabase.getMagpieDatabase(this.getActivity());
+      //  JSONParser jsonParser = new JSONParser(this.getActivity());
+      /*  jsonParser.getCollections();
+        //jsonParser.getLandmarks(1);
+        //log.e(TAG, db.collectionDao().getCollection(1).getName());
+
+        // jsonParser.getLandmarks(1);
+        //Collection c = db.collectionDao().getCollection(1);
+        TextView tc = (TextView)view.findViewById(R.id.cname);
+        tc.setText( db.collectionDao().getCollection(1).getName());
+        TextView tl = (TextView)view.findViewById(R.id.lname);
+        //List<Landmark> landmarks = db.landmarkDao().getLandmarks(1);
+        //tl.setText( db.landmarkDao().getLandmarks(1).get(0).getLandmarkName());
+
+*/
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

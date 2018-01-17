@@ -1,34 +1,59 @@
 package com.magpiehunt.magpie.Entities;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by James on 1/10/2018.
  */
 
 @Entity(tableName = "Collections")
-public class Collection {
+public class Collection{
 
+    @SerializedName("CID")
+    @Expose
     @PrimaryKey
-    private int CID;
+    private int cID;
+    @SerializedName("Available")
+    @Expose
     private boolean available;
+    @SerializedName("Name")
+    @Expose
     private String name;
+    @SerializedName("City")
+    @Expose
     private String city;
+    @SerializedName("State")
+    @Expose
     private String state;
+    @SerializedName("ZipCode")
+    @Expose
     private int zipCode;
+    @SerializedName("Rating")
+    @Expose
     private String rating;
+    @SerializedName("Description")
+    @Expose
     private String description;
+    @SerializedName("Ordered")
+    @Expose
     private boolean ordered;
+    @SerializedName("Abbreviation")
+    @Expose
     private String abbreviation;
+    @SerializedName("Sponsor")
+    @Expose
+    private String sponsor;
 
     public int getCID() {
-        return CID;
+        return cID;
     }
 
     public void setCID(int CID) {
-        this.CID = CID;
+        this.cID = CID;
     }
 
     public boolean isAvailable() {
@@ -101,6 +126,14 @@ public class Collection {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
     }
 
 }

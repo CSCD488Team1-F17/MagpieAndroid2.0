@@ -14,13 +14,13 @@ import com.magpiehunt.magpie.Entities.Landmark;
  * Created by James on 1/12/2018.
  */
 @Database(entities = {Collection.class, Landmark.class}, version = 1)
+
 public abstract class MagpieDatabase extends RoomDatabase {
 
     private static MagpieDatabase INSTANCE;
 
     public abstract CollectionDao collectionDao();
     public abstract LandmarkDao landmarkDao();
-
     public static MagpieDatabase getMagpieDatabase(Context context)
     {
         if(INSTANCE == null)
