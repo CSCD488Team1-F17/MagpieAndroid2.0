@@ -21,7 +21,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.magpiehunt.magpie.Fragments.MapFragment;
+import com.magpiehunt.magpie.Fragments.GoogleMapFragment;
 import com.magpiehunt.magpie.Fragments.MyCollectionsFragment;
 import com.magpiehunt.magpie.Fragments.PrizesFragment;
 import com.magpiehunt.magpie.Fragments.QRFragment;
@@ -32,7 +32,7 @@ import com.magpiehunt.magpie.Fragments.SearchCollectionsFragment;
  * Date:    11/14/17.
  */
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, MyCollectionsFragment.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener, QRFragment.OnFragmentInteractionListener, SearchCollectionsFragment.OnFragmentInteractionListener,PrizesFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, MyCollectionsFragment.OnFragmentInteractionListener, GoogleMapFragment.OnFragmentInteractionListener, QRFragment.OnFragmentInteractionListener, SearchCollectionsFragment.OnFragmentInteractionListener,PrizesFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 123;
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void setupFragments()
     {
         final MyCollectionsFragment myCollectionsFragment = new MyCollectionsFragment();
-        final MapFragment mapFragment = new MapFragment();
+        final GoogleMapFragment mapFragment = new GoogleMapFragment();
         final QRFragment qrFragment = new QRFragment();
         final SearchCollectionsFragment searchCollectionsFragment = new SearchCollectionsFragment();
         final PrizesFragment prizesFragment = new PrizesFragment();
