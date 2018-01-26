@@ -4,13 +4,23 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.magpiehunt.magpie.Database.MagpieDatabase;
+import com.magpiehunt.magpie.Entities.Collection;
+import com.magpiehunt.magpie.Entities.Landmark;
 import com.magpiehunt.magpie.R;
-import com.magpiehunt.magpie.WebClient.JSONParser;
+import com.magpiehunt.magpie.WebClient.ApiService;
+import com.magpiehunt.magpie.WebClient.ServiceGenerator;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -27,7 +37,7 @@ public class SearchCollectionsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final String TAG = "SearchCollectionsFragment";
+    private static final String TAG = "SearchCollectionsFrag";
 
 
     // TODO: Rename and change types of parameters
@@ -62,11 +72,6 @@ public class SearchCollectionsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        MagpieDatabase db = MagpieDatabase.getMagpieDatabase(this.getActivity());
-        JSONParser jsonParser = new JSONParser(this.getActivity());
-        //jsonParser.getLandmarks();
-       // jsonParser.getLandmarks();
-      //  Collection c = db.collectionDao().getCollection(1);
 
 
 
@@ -79,24 +84,55 @@ public class SearchCollectionsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_search_collections, container, false);
 
+        ApiService apiService = ServiceGenerator.createService(ApiService.class);
+        Call<List<Collection>> call = apiService.getCollections();
 
-       // MagpieDatabase db = MagpieDatabase.getMagpieDatabase(this.getActivity());
-      //  JSONParser jsonParser = new JSONParser(this.getActivity());
-      /*  jsonParser.getCollections();
-        //jsonParser.getLandmarks(1);
-        //log.e(TAG, db.collectionDao().getCollection(1).getName());
 
-        // jsonParser.getLandmarks(1);
-        //Collection c = db.collectionDao().getCollection(1);
-        TextView tc = (TextView)view.findViewById(R.id.cname);
-        tc.setText( db.collectionDao().getCollection(1).getName());
-        TextView tl = (TextView)view.findViewById(R.id.lname);
-        //List<Landmark> landmarks = db.landmarkDao().getLandmarks(1);
-        //tl.setText( db.landmarkDao().getLandmarks(1).get(0).getLandmarkName());
+        call.enqueue(new Callback<List<Collection>>() {
+            @Override
+            public void onResponse(Call<List<Collection>> call, Response<List<Collection>> response) {
+                List<Collection> collections = response.body();
 
-*/
+            }
+
+            @Override
+            public void onFailure(Call<List<Collection>> call, Throwable t) {
+                Log.e(TAG, "Call failed");
+
+            }
+        });
+
         return view;
     }
+
+
+    //This method adds a collection to magpieDB as well as any associated landmarks
+    private void addCollectionToDB(Collection c)
+    {
+        final MagpieDatabase db = MagpieDatabase.getMagpieDatabase(this.getActivity());
+        db.collectionDao().addCollection(c);
+
+        ApiService apiService = ServiceGenerator.createService(ApiService.class);
+
+        Call<List<Landmark>> call = apiService.getLandmarks(c.getCID());
+
+        call.enqueue(new Callback<List<Landmark>>() {
+            @Override
+            public void onResponse(Call<List<Landmark>> call, Response<List<Landmark>> response) {
+                List<Landmark> landmarks = response.body();
+                for(Landmark l: landmarks)
+                    db.landmarkDao().addLandmark(l);
+            }
+
+            @Override
+            public void onFailure(Call<List<Landmark>> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
