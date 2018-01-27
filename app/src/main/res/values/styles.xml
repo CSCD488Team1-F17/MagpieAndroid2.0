@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/font_awesome</item>
     </style>
 
     <!-- Splash Screen background theme. -->
@@ -17,6 +18,7 @@
         <item name="android:textSize">21sp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/colorMagpieWhite</item>
+        <item name="android:fontFamily">@font/font_awesome</item>
     </style>
 </resources>
 
