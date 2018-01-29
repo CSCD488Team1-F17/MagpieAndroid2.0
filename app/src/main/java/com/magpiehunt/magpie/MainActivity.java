@@ -12,6 +12,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -21,7 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.magpiehunt.magpie.Fragments.MapFragment;
+import com.magpiehunt.magpie.Fragments.GoogleMapFragment;
 import com.magpiehunt.magpie.Fragments.MyCollectionsFragment;
 import com.magpiehunt.magpie.Fragments.PrizesFragment;
 import com.magpiehunt.magpie.Fragments.QRFragment;
@@ -32,7 +34,7 @@ import com.magpiehunt.magpie.Fragments.SearchCollectionsFragment;
  * Date:    11/14/17.
  */
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, MyCollectionsFragment.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener, QRFragment.OnFragmentInteractionListener, SearchCollectionsFragment.OnFragmentInteractionListener,PrizesFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, MyCollectionsFragment.OnFragmentInteractionListener, GoogleMapFragment.OnFragmentInteractionListener, QRFragment.OnFragmentInteractionListener, SearchCollectionsFragment.OnFragmentInteractionListener,PrizesFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 123;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     FirebaseUser mFirebaseUser;
 
     GoogleApiClient mGoogleApiClient;
+    public Menu optionsMenu;
 
     private String mUsername;
     private String mPhotoUrl; // Optional - if we want their photo
@@ -116,15 +119,40 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }//end if
     }//end
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        optionsMenu = menu;
+        menu.findItem(R.id.add_location).setVisible(false);
+        menu.findItem(R.id.save_locations).setVisible(false);
+        return true;
+    }
+
+    /*public void toggleOptionsMenu(int id, boolean enabled){
+        if(optionsMenu != null){
+            MenuItem item = optionsMenu.findItem(id);
+            item.setVisible(enabled);
+        }
+    }*/
+
     //this method creates the fragments for each page accessible from the bottom navigation
     // bar and sets up the listener for the navigation bar.
     private void setupFragments()
     {
+<<<<<<< HEAD
+        final MyCollectionsFragment myCollectionsFragment = new MyCollectionsFragment();
+        final GoogleMapFragment mapFragment = new GoogleMapFragment();
+        final QRFragment qrFragment = new QRFragment();
+        final SearchCollectionsFragment searchCollectionsFragment = new SearchCollectionsFragment();
+        final PrizesFragment prizesFragment = new PrizesFragment();
+=======
         final MyCollectionsFragment myCollectionsFragment = MyCollectionsFragment.newInstance();
         final MapFragment mapFragment = MapFragment.newInstance();
         final QRFragment qrFragment = QRFragment.newInstance();
         final SearchCollectionsFragment searchCollectionsFragment = SearchCollectionsFragment.newInstance();
         final PrizesFragment prizesFragment = PrizesFragment.newInstance();
+>>>>>>> origin
         fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragment_container, myCollectionsFragment).commit();
