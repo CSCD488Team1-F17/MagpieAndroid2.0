@@ -140,11 +140,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     // bar and sets up the listener for the navigation bar.
     private void setupFragments()
     {
+<<<<<<< HEAD
         final MyCollectionsFragment myCollectionsFragment = new MyCollectionsFragment();
         final GoogleMapFragment mapFragment = new GoogleMapFragment();
         final QRFragment qrFragment = new QRFragment();
         final SearchCollectionsFragment searchCollectionsFragment = new SearchCollectionsFragment();
         final PrizesFragment prizesFragment = new PrizesFragment();
+=======
+        final MyCollectionsFragment myCollectionsFragment = MyCollectionsFragment.newInstance();
+        final MapFragment mapFragment = MapFragment.newInstance();
+        final QRFragment qrFragment = QRFragment.newInstance();
+        final SearchCollectionsFragment searchCollectionsFragment = SearchCollectionsFragment.newInstance();
+        final PrizesFragment prizesFragment = PrizesFragment.newInstance();
+>>>>>>> origin
         fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragment_container, myCollectionsFragment).commit();
