@@ -12,4 +12,7 @@
     <color name="colorMagpieDarkGray">#a7acb3</color>
     <color name="colorMagpieLightGray">#C8CDD5</color>
     <color name="colorMagpieWhite">#ffffff</color>
+
+    <color name="translucent_grey">#88cccccc</color>
+
 </resources>
