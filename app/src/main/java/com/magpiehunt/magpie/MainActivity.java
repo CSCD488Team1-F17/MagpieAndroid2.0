@@ -12,6 +12,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     FirebaseUser mFirebaseUser;
 
     GoogleApiClient mGoogleApiClient;
+    public Menu optionsMenu;
 
     private String mUsername;
     private String mPhotoUrl; // Optional - if we want their photo
@@ -115,6 +118,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         }//end if
     }//end
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        optionsMenu = menu;
+        menu.findItem(R.id.add_location).setVisible(false);
+        menu.findItem(R.id.save_locations).setVisible(false);
+        return true;
+    }
+
+    /*public void toggleOptionsMenu(int id, boolean enabled){
+        if(optionsMenu != null){
+            MenuItem item = optionsMenu.findItem(id);
+            item.setVisible(enabled);
+        }
+    }*/
 
     //this method creates the fragments for each page accessible from the bottom navigation
     // bar and sets up the listener for the navigation bar.

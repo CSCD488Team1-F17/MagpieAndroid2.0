@@ -15,6 +15,9 @@
     <string name="hello_prizes_fragment">Hello prizes fragment</string>
     <string name="title_activity_maps">Map</string>
 
+    <string name="add_location">Add Location</string>
+    <string name="save_locations">Save Locations</string>
+
     <!--<string name="default_web_client_id">1051549843498-kfetusesfc5drgo9bv9p93imug1oj6na.apps.googleusercontent.com</string>
         This is actually given to us already! No need to specifically declare. Leaving this here for future reference. :)
     -->
