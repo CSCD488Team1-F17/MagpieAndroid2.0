@@ -1,3 +1,7 @@
-build
-.idea
+\build\
+\.idea
 app\build
+
+\.gradle
+*.class
+*.jar
