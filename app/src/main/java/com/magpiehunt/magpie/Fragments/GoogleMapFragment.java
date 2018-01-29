@@ -290,7 +290,7 @@ public class GoogleMapFragment extends Fragment
 
 
     private void addLocation(){
-
+        placeMarker(new LatLng(currLoc.getLatitude(), currLoc.getLongitude()), "New Loc");
     }
 
     @Override
